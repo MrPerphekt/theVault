@@ -6,16 +6,16 @@ using MonoTouch.UIKit;
 
 namespace theVault
 {
-	public partial class FirstViewController : UIViewController
+	public partial class SecondViewController : UITableViewController
 	{
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
-		public FirstViewController (IntPtr handle) : base (handle)
+		public SecondViewController (IntPtr handle) : base (handle)
 		{
-			this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");
-			this.TabBarItem.Image = UIImage.FromBundle ("Images/first");
+			this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
+			this.TabBarItem.Image = UIImage.FromBundle ("Images/second");
 		}
 		
 		public override void DidReceiveMemoryWarning ()

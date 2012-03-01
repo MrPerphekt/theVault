@@ -67,12 +67,16 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="FirstViewController.cs" />
-    <Compile Include="SecondViewController.cs" />
-    <Compile Include="FirstViewController.designer.cs">
-      <DependentUpon>FirstViewController.cs</DependentUpon>
+    <Compile Include="Data\ClientInterface.cs" />
+    <Compile Include="Models\Credential.cs" />
+    <Compile Include="Controllers\CredentialsViewController.cs" />
+    <Compile Include="Controllers\CredentialsViewController.designer.cs">
+      <DependentUpon>CredentialsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SecondViewController.designer.cs">
+    <Compile Include="Delegates\CredentialsViewDelegate.cs" />
+    <Compile Include="DataSources\CredentialsViewDataSource.cs" />
+    <Compile Include="Controllers\SecondViewController.cs" />
+    <Compile Include="Controllers\SecondViewController.designer.cs">
       <DependentUpon>SecondViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -87,4 +91,11 @@
     <Content Include="Images\second%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Models\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="DataSources\" />
+    <Folder Include="Delegates\" />
+  </ItemGroup>
 </Project>
