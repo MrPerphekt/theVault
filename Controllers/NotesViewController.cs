@@ -6,10 +6,18 @@ using MonoTouch.UIKit;
 
 namespace theVault
 {
-	public partial class CredentialsViewControllerResource : UIViewController
+	public partial class NotesViewController : UIViewController
 	{
-		public CredentialsViewControllerResource () : base ("CredentialsViewControllerResource", null)
+		public NotesViewController (IntPtr handle) 
+			: base (handle)
 		{
+			this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
+		}
+		
+		public NotesViewController ()
+			: base ("NotesViewController", null)
+		{
+			this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
 		}
 		
 		public override void DidReceiveMemoryWarning ()

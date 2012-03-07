@@ -70,7 +70,7 @@ namespace theVault
 			int actionButtonHeight = 56;
 			int actionButtonOffset = (int)(this.Frame.Width / 2) - actionButtonWidth / 2;
 			
-			int buttonWidth = (int)((this.Frame.Width - actionButtonWidth) / _views.Count);
+			int buttonWidth = (int)((this.Frame.Width - actionButtonWidth) / (_views.Count == 1 ? 2 : _views.Count));
 			int buttonHeight = 44;
 						
 			for (int i = 0; i < _views.Count; i++)
@@ -85,50 +85,63 @@ namespace theVault
 			}
 			
 			if (_actionButton != null )
+			{
 				_actionButton.Frame = new System.Drawing.RectangleF(actionButtonOffset, this.Frame.Height - actionButtonHeight, actionButtonWidth, actionButtonHeight);
+			}
 		}
 		
 		private void MakeViewActive(TabBarItem tabItem)
 		{
 			if ( tabItem == null || _parentController == null)
 				return;
-
-			this.Superview.AddSubview(tabItem.ViewController.View);
+			
+			var selectedView = _views.Where(v => v.IsSelected).FirstOrDefault();
+						
+			if ( selectedView == tabItem )
+				return;
 			
 			tabItem.IsSelected = true;
-			
-			//if ( selectedView != null )
-			//	selectedView.ViewController.RemoveFromParentViewController();
-			
-			//_parentController.View.AddSubview(tabItem.ViewController.View);
-			
-			//_parentController.View.InsertSubviewBelow(tabItem.ViewController.View, this);
-			
-			/*
-			UIView.BeginAnimations("View Flip");
-			UIView.SetAnimationDuration(1.25);
-			UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
-			UIView.SetAnimationTransition(UIViewAnimationTransition.FlipFromRight, this, true);
-						
+									
+			//UIView.BeginAnimations("View Flip");
+			//UIView.SetAnimationDuration(1);
+			//UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
+			//UIView.SetAnimationTransition(UIViewAnimationTransition.CurlDown, tabItem.ViewController.View, true);
+
 			tabItem.ViewController.ViewWillAppear(true);
 			
 			if (selectedView != null )
 			{
 				selectedView.ViewController.ViewWillDisappear(true);
+				selectedView.ViewController.View.RemoveFromSuperview();
 				selectedView.ViewController.RemoveFromParentViewController();
-			}
-
-			_parentController.AddChildViewController(tabItem.ViewController);
-    		//[self.view insertSubview:self.blueViewController.view atIndex:0];
-			
-			if ( selectedView != null )
-			{
 				selectedView.ViewController.ViewDidDisappear(true);
 			}
 			
-			tabItem.ViewController.ViewDidAppear(true);
-			*/
-						
+			int width = 0;
+			int height = 0;
+			
+			if ( UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Portrait ||
+			    UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.PortraitUpsideDown ||
+			    UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.Unknown)
+			{
+				width = (int)_parentController.View.Frame.Width;
+				height = (int)_parentController.View.Frame.Height;
+			}
+			else if (UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeLeft ||
+			         UIDevice.CurrentDevice.Orientation == UIDeviceOrientation.LandscapeRight)
+			{
+				height = (int)_parentController.View.Frame.Width;
+				width = (int)_parentController.View.Frame.Height;
+			}
+								
+			tabItem.ViewController.View.Frame = new System.Drawing.RectangleF(0, 0, width, height - this.Frame.Height);
+			_parentController.View.InsertSubview(tabItem.ViewController.View, 0);
+			_parentController.AddChildViewController(tabItem.ViewController);
+			
+			tabItem.ViewController.ViewDidAppear(true);			
+			
+			//UIView.CommitAnimations();
+
 			var tabItems = _views.Where (v => v != tabItem);
 			
 			foreach (var item in tabItems)
@@ -179,6 +192,17 @@ namespace theVault
 					view = new TabBarItem();
 					view.ViewController = viewController;
 					view.Button = UIButton.FromType(UIButtonType.RoundedRect);
+					view.Button.TouchUpInside += (sender, e) => 
+						{ 
+							var button = sender as UIButton;
+							
+							if ( button == null ) return;
+						
+							var tabItem = _views.FirstOrDefault(v => v.Button == button);
+						
+							if ( tabItem != null)
+								SelectView(tabItem.ViewController); 
+						};
 					
 					_views.Insert(_viewControllers.IndexOf(viewController), view);
 				}
@@ -188,7 +212,7 @@ namespace theVault
 			int actionButtonHeight = 56;
 			int actionButtonOffset = (int)(this.Frame.Width / 2) - actionButtonWidth / 2;
 			
-			int buttonWidth = (int)((this.Frame.Width - actionButtonWidth) / _views.Count);
+			int buttonWidth = (int)((this.Frame.Width - actionButtonWidth) / (_views.Count == 1 ? 2 : _views.Count));
 			int buttonHeight = 44;
 						
 			for (int i = 0; i < _views.Count; i++)
@@ -207,7 +231,7 @@ namespace theVault
 			
 			// Add action button
 			if ( _actionButton == null )
-			{
+			{			
 				_actionButton = UIButton.FromType(UIButtonType.RoundedRect);
 				_actionButton.Frame = new System.Drawing.RectangleF(actionButtonOffset, this.Frame.Height - actionButtonHeight, actionButtonWidth, actionButtonHeight);
 			}

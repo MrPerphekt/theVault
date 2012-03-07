@@ -1,12 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DataSources/CredentialsViewDataSource.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Views/TabBarView.cs">
     <Files>
-      <File FileName="Data/ClientInterface.cs" Line="17" Column="2" />
-      <File FileName="Models/Credential.cs" Line="15" Column="4" />
-      <File FileName="Controllers/CredentialsViewController.cs" Line="46" Column="4" />
-      <File FileName="Delegates/CredentialsViewDelegate.cs" Line="6" Column="49" />
-      <File FileName="DataSources/CredentialsViewDataSource.cs" Line="18" Column="42" />
+      <File FileName="Controllers/MainViewController.cs" Line="35" Column="40" />
+      <File FileName="Views/TabBarView.cs" Line="106" Column="1" />
+      <File FileName="Controllers/CredentialsViewController.cs" Line="37" Column="4" />
+      <File FileName="Controllers/NotesViewController.cs" Line="37" Column="3" />
+      <File FileName="Controllers/CredentialsViewController.designer.cs" Line="26" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

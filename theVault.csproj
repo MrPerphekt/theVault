@@ -69,16 +69,11 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Data\ClientInterface.cs" />
     <Compile Include="Models\Credential.cs" />
-    <Compile Include="Controllers\CredentialsViewController.cs" />
     <Compile Include="Controllers\CredentialsViewController.designer.cs">
       <DependentUpon>CredentialsViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Delegates\CredentialsViewDelegate.cs" />
     <Compile Include="DataSources\CredentialsViewDataSource.cs" />
-    <Compile Include="Controllers\SecondViewController.cs" />
-    <Compile Include="Controllers\SecondViewController.designer.cs">
-      <DependentUpon>SecondViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="TableCellFactory.cs" />
     <Compile Include="Views\TabBarView.cs" />
     <Compile Include="Views\TabBarView.designer.cs">
@@ -88,16 +83,18 @@
     <Compile Include="Controllers\MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\CredentialsViewControllerResource.cs" />
-    <Compile Include="Controllers\CredentialsViewControllerResource.designer.cs">
-      <DependentUpon>CredentialsViewControllerResource.cs</DependentUpon>
+    <Compile Include="Controllers\CredentialsViewController.cs" />
+    <Compile Include="Controllers\NotesViewController.cs" />
+    <Compile Include="Controllers\NotesViewController.designer.cs">
+      <DependentUpon>NotesViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
     <InterfaceDefinition Include="MainStoryboard_iPad.storyboard" />
     <InterfaceDefinition Include="Resources\TableViewSearchBar.xib" />
-    <InterfaceDefinition Include="Controllers\CredentialsViewControllerResource.xib" />
+    <InterfaceDefinition Include="Controllers\CredentialsViewController.xib" />
+    <InterfaceDefinition Include="Controllers\NotesViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\first.png" />

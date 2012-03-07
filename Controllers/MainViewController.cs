@@ -10,8 +10,7 @@ namespace theVault
 	public partial class MainViewController : UIViewController
 	{
 		private CredentialsViewController _credentialsView;
-		private SecondViewController _secondView;
-		private UIButton button;
+		private NotesViewController _notesView;
 		
 		public MainViewController (IntPtr handle) : base (handle)
 		{
@@ -26,13 +25,13 @@ namespace theVault
 		{
 			base.ViewDidLoad ();
 
-			_credentialsView = new CredentialsViewController(this.Handle);		
-			_secondView = new SecondViewController(this.Handle);
+			_credentialsView = new CredentialsViewController();
+			_notesView = new NotesViewController();
 						
 			_tabBar.AddViewController(_credentialsView);
-			_tabBar.AddViewController(_secondView);
+			_tabBar.AddViewController(_notesView);
 			_tabBar.SetParentViewController(this);
-			//_tabBar.SelectView(_credentialsView);
+			_tabBar.SelectView(_credentialsView);
 		}
 	}
 }

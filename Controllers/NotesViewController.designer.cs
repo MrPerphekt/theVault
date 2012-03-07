@@ -1,3 +1,4 @@
+// WARNING
 //
 // This file has been generated automatically by MonoDevelop to store outlets and
 // actions made in the Xcode designer. If it is removed, they will be lost.
@@ -7,12 +8,11 @@ using MonoTouch.Foundation;
 
 namespace theVault
 {
-	[Register ("SecondViewController")]
-	partial class SecondViewController
+	[Register ("NotesViewController")]
+	partial class NotesViewController
 	{
 		void ReleaseDesignerOutlets ()
 		{
 		}
 	}
 }
-
