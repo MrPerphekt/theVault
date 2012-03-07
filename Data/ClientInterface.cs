@@ -30,7 +30,25 @@ namespace theVault
 		
 		public static List<Credential> GetCredentials()
 		{
-			return new List<Credential>();	
+			return new List<Credential>(){
+				new Credential()
+				{
+					Name = "Amazon",
+					Url = "http://www.amazon.com"
+				},
+				
+				new Credential()
+				{
+					Name = "Capital One",
+					Url = "http://www.capitalone.com"
+				},
+				
+				new Credential()
+				{
+					Name = "Chase",
+					Url = "http://www.chase.com"
+				}
+			};
 		}		
 		
 		#endregion

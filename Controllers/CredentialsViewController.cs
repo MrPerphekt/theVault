@@ -4,18 +4,25 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MonoTouch.ObjCRuntime;
 
 namespace theVault
 {
 	public partial class CredentialsViewController : UITableViewController
-	{
+	{	
+		public override string Title {
+			get {
+				return NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");;
+			}
+		}
+		
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
 		public CredentialsViewController (IntPtr handle) : base (handle)
 		{
-			this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");
+			//∫this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");
 			this.TabBarItem.Image = UIImage.FromBundle ("Images/first");		
 		}
 		
@@ -32,7 +39,7 @@ namespace theVault
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
+					
 			this.TableView.Delegate = new CredentialsViewDelegate();
 			this.TableView.DataSource = new CredentialsViewDataSource();
 		}
@@ -40,15 +47,13 @@ namespace theVault
 		public override void ViewDidUnload ()
 		{
 			base.ViewDidUnload ();
-			
+
+			this.TableView.Delegate.Dispose();
 			this.TableView.Delegate = null;
+			
+			this.TableView.DataSource.Dispose();
 			this.TableView.DataSource = null;
-			
-			// Clear any references to subviews of the main view in order to
-			// allow the Garbage Collector to collect them sooner.
-			//
-			// e.g. myOutlet.Dispose (); myOutlet = null;
-			
+						
 			ReleaseDesignerOutlets ();
 		}
 		
@@ -73,21 +78,10 @@ namespace theVault
 		}
 		
 		#endregion
-		
-		#region TableView Methods
-
-		
-		
-		#endregion
-		
+				
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
-		{
-			// Return true for supported orientations
-			if (UserInterfaceIdiomIsPhone) {
-				return (toInterfaceOrientation != UIInterfaceOrientation.PortraitUpsideDown);
-			} else {
-				return true;
-			}
+		{		
+			return true;
 		}
 	}
 }

@@ -8,17 +8,17 @@ using MonoTouch.Foundation;
 
 namespace theVault
 {
-	[Register ("CredentialsViewController")]
-	partial class CredentialsViewController
+	[Register ("MainViewController")]
+	partial class MainViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UISearchBar _searchBar { get; set; }
+		theVault.TabBarView _tabBar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (_searchBar != null) {
-				_searchBar.Dispose ();
-				_searchBar = null;
+			if (_tabBar != null) {
+				_tabBar.Dispose ();
+				_tabBar = null;
 			}
 		}
 	}

@@ -8,13 +8,19 @@ namespace theVault
 {
 	public partial class SecondViewController : UITableViewController
 	{
+		public override string Title {
+			get {
+				return NSBundle.MainBundle.LocalizedString ("Notes", "Notes");;
+			}
+		}
+		
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
 		public SecondViewController (IntPtr handle) : base (handle)
 		{
-			this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
+			//this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
 			this.TabBarItem.Image = UIImage.FromBundle ("Images/second");
 		}
 		
@@ -71,12 +77,7 @@ namespace theVault
 		
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
-			// Return true for supported orientations
-			if (UserInterfaceIdiomIsPhone) {
-				return (toInterfaceOrientation != UIInterfaceOrientation.PortraitUpsideDown);
-			} else {
-				return true;
-			}
+			return true;
 		}
 	}
 }
