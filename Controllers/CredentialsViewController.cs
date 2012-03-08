@@ -8,32 +8,33 @@ namespace theVault
 {
 	public partial class CredentialsViewController : UITableViewController
 	{
-		public override string Title 
-		{
-			get 
-			{
-				return NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");
-			}
-		}
-
 		public CredentialsViewController (IntPtr handle) 
 			: base (handle)
 		{
+			Initialize();			
 		}
 		
 		public CredentialsViewController ()
 			: base ("CredentialsViewController", null)
 		{
+			Initialize();
 		}
 		
+		private void Initialize()
+		{
+			this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");			
+		}
+				
 		#region View lifecycle
 		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-					
+								
 			this.TableView.Delegate = new CredentialsViewDelegate();
 			this.TableView.DataSource = new CredentialsViewDataSource();
+			
+			_searchBar.Delegate = new SearchBarDelegate(this);
 		}
 		
 		public override void ViewDidUnload ()

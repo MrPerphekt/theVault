@@ -11,11 +11,16 @@ namespace theVault
 		public NotesViewController (IntPtr handle) 
 			: base (handle)
 		{
-			this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
+			Initialize();			
 		}
 		
 		public NotesViewController ()
 			: base ("NotesViewController", null)
+		{
+			Initialize();			
+		}
+		
+		private void Initialize()
 		{
 			this.Title = NSBundle.MainBundle.LocalizedString ("Notes", "Notes");
 		}

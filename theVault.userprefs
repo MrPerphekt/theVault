@@ -1,12 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Views/TabBarView.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Delegates/SearchBarDelegate.cs">
     <Files>
-      <File FileName="Controllers/MainViewController.cs" Line="35" Column="40" />
-      <File FileName="Views/TabBarView.cs" Line="106" Column="1" />
-      <File FileName="Controllers/CredentialsViewController.cs" Line="37" Column="4" />
-      <File FileName="Controllers/NotesViewController.cs" Line="37" Column="3" />
-      <File FileName="Controllers/CredentialsViewController.designer.cs" Line="26" Column="1" />
+      <File FileName="Controllers/MainViewController.cs" Line="14" Column="1" />
+      <File FileName="Views/TabBarView.cs" Line="234" Column="32" />
+      <File FileName="Controllers/CredentialsViewController.cs" Line="37" Column="52" />
+      <File FileName="Controllers/NotesViewController.cs" Line="30" Column="49" />
+      <File FileName="Interfaces/ISearchableDataSource.cs" Line="7" Column="3" />
+      <File FileName="DataSources/CredentialsViewDataSource.cs" Line="48" Column="54" />
+      <File FileName="Delegates/SearchBarDelegate.cs" Line="31" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

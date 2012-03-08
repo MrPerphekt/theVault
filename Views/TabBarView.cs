@@ -101,12 +101,33 @@ namespace theVault
 				return;
 			
 			tabItem.IsSelected = true;
-									
-			//UIView.BeginAnimations("View Flip");
-			//UIView.SetAnimationDuration(1);
-			//UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
-			//UIView.SetAnimationTransition(UIViewAnimationTransition.CurlDown, tabItem.ViewController.View, true);
-
+			
+			/*
+			//This animates the entire window but works properly
+			if (selectedView != null )				
+				UIView.Transition(selectedView.ViewController.View, tabItem.ViewController.View, 1, 
+				                  UIViewAnimationOptions.BeginFromCurrentState | UIViewAnimationOptions.CurveEaseInOut | UIViewAnimationOptions.TransitionCurlDown,
+				                  () => 
+				                 {  
+									selectedView.ViewController.View.RemoveFromSuperview();
+									selectedView.ViewController.RemoveFromParentViewController();
+									tabItem.ViewController.View.Frame = new System.Drawing.RectangleF(0, 0, this.Frame.Width, _parentController.View.Frame.Height - this.Frame.Height);
+									_parentController.View.InsertSubview(tabItem.ViewController.View, 0);
+									_parentController.AddChildViewController(tabItem.ViewController);
+								 });
+			*/
+			
+			/*
+			//This will animate specific area but doesn't use current state
+			UIView.BeginAnimations("View Flip");
+			UIView.SetAnimationDuration(1);
+			UIView.SetAnimationCurve(UIViewAnimationCurve.EaseInOut);
+			UIView.SetAnimationTransition(UIViewAnimationTransition.CurlDown, tabItem.ViewController.View, true);
+			UIView.SetAnimationBeginsFromCurrentState(true);
+			*/
+			
+			//don't execute code below if using either animation
+			
 			tabItem.ViewController.ViewWillAppear(true);
 			
 			if (selectedView != null )
@@ -139,7 +160,7 @@ namespace theVault
 			_parentController.AddChildViewController(tabItem.ViewController);
 			
 			tabItem.ViewController.ViewDidAppear(true);			
-			
+
 			//UIView.CommitAnimations();
 
 			var tabItems = _views.Where (v => v != tabItem);
@@ -191,7 +212,8 @@ namespace theVault
 				{
 					view = new TabBarItem();
 					view.ViewController = viewController;
-					view.Button = UIButton.FromType(UIButtonType.RoundedRect);
+					view.Button = UIButton.FromType(UIButtonType.Custom);
+					view.Button.BackgroundColor = UIColor.Clear;
 					view.Button.TouchUpInside += (sender, e) => 
 						{ 
 							var button = sender as UIButton;
@@ -232,7 +254,8 @@ namespace theVault
 			// Add action button
 			if ( _actionButton == null )
 			{			
-				_actionButton = UIButton.FromType(UIButtonType.RoundedRect);
+				_actionButton = UIButton.FromType(UIButtonType.Custom);
+				_actionButton.BackgroundColor = UIColor.Green;
 				_actionButton.Frame = new System.Drawing.RectangleF(actionButtonOffset, this.Frame.Height - actionButtonHeight, actionButtonWidth, actionButtonHeight);
 			}
 			

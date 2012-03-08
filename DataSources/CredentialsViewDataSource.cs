@@ -6,17 +6,19 @@ using MonoTouch.Foundation;
 
 namespace theVault
 {
-	public class CredentialsViewDataSource : UITableViewDataSource
+	public class CredentialsViewDataSource : UITableViewDataSource, ISearchableDataSource
 	{		
 		private List<Credential> _credentials;
+		private List<Credential> _filteredCredentials;
 		
 		public CredentialsViewDataSource()
 		{
-			_credentials = ClientInterface.GetCredentials();
+			_filteredCredentials = _credentials = ClientInterface.GetCredentials();
 		}
 			
 		protected override void Dispose (bool disposing)
 		{
+			_filteredCredentials = null;
 			_credentials = null;
 		}
 
@@ -24,7 +26,7 @@ namespace theVault
 	    {
 			string cellId = "CredentialTableCell";
 									
-			var credential = _credentials.GroupBy(c => c.Name[0]).ElementAt(indexPath.Section).ElementAt(indexPath.Row);
+			var credential = _filteredCredentials.GroupBy(c => c.Name[0]).ElementAt(indexPath.Section).ElementAt(indexPath.Row);
  
 			UITableViewCell cell = tableView.DequeueReusableCell(cellId);      
 			
@@ -40,22 +42,30 @@ namespace theVault
 		
 	    public override int NumberOfSections(UITableView tableView)
 	    {
-	        return _credentials.Select(c => !string.IsNullOrEmpty(c.Name) ? c.Name[0] : ' ').Distinct().Count();
+	        return _filteredCredentials.Select(c => !string.IsNullOrEmpty(c.Name) ? c.Name[0] : ' ').Distinct().Count();
 	    }
 	    
 	    public override int RowsInSection(UITableView tableview, int section)
 	    {
-			var sections = _credentials.Select(c => !string.IsNullOrEmpty(c.Name) ? c.Name[0] : ' ').Distinct();
+			var sections = _filteredCredentials.Select(c => !string.IsNullOrEmpty(c.Name) ? c.Name[0] : ' ').Distinct();
 			
 			if ( sections.Count() > section )
 			{
 				var sectionLetter = sections.ElementAt(section);
 				
-				return _credentials.Where(c => !string.IsNullOrEmpty(c.Name) && c.Name.StartsWith(sectionLetter.ToString())).Count();
+				return _filteredCredentials.Where(c => !string.IsNullOrEmpty(c.Name) && c.Name.StartsWith(sectionLetter.ToString())).Count();
 			}
 			
 			return 0;
 	    }
+		
+		public void Search(string searchText)
+		{
+			if ( string.IsNullOrEmpty(searchText))
+				_filteredCredentials = _credentials;
+			else
+				_filteredCredentials = _credentials.Where (c => c.Name.Contains(searchText)).ToList();
+		}
 		
 		public override string[] SectionIndexTitles (UITableView tableView)
 		{
@@ -65,7 +75,7 @@ namespace theVault
 		
 	    public override string TitleForHeader(UITableView tableView, int section)
 	    {
-			var sections = _credentials.Select(c => !string.IsNullOrEmpty(c.Name) ? c.Name[0] : ' ').Distinct();
+			var sections = _filteredCredentials.Select(c => !string.IsNullOrEmpty(c.Name) ? c.Name[0] : ' ').Distinct();
 			
 			if ( sections.Count() > section )
 			{

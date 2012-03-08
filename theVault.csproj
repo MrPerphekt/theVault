@@ -88,6 +88,8 @@
     <Compile Include="Controllers\NotesViewController.designer.cs">
       <DependentUpon>NotesViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Interfaces\ISearchableDataSource.cs" />
+    <Compile Include="Delegates\SearchBarDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
@@ -111,5 +113,6 @@
     <Folder Include="Delegates\" />
     <Folder Include="Resources\" />
     <Folder Include="Views\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>
