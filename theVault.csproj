@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Interfaces\ISearchableDataSource.cs" />
     <Compile Include="Delegates\SearchBarDelegate.cs" />
+    <Compile Include="Data\VaultDatabase.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
