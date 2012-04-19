@@ -5,6 +5,8 @@ namespace theVault
 {
 	public static class ClientInterface
 	{
+		private static VaultDatabase _database;
+		
 		static ClientInterface ()
 		{
 			InitializeDataAccess();
@@ -13,43 +15,24 @@ namespace theVault
 		// Initialize the SQL database and/or create if needed
 		private static void InitializeDataAccess()
 		{
-			
+			_database =	new VaultDatabase();
 		}
 		
 		#region Credentials
-		
-		// TODO:  Add support for creating a credential
-		public static bool CreateCredential()
-		{
-			return true;
-		}
-		
+				
 		public static void DeleteCredential(Credential credential)
 		{
 		}
 		
 		public static List<Credential> GetCredentials()
 		{
-			return new List<Credential>(){
-				new Credential()
-				{
-					Name = "Amazon",
-					Url = "http://www.amazon.com"
-				},
-				
-				new Credential()
-				{
-					Name = "Capital One",
-					Url = "http://www.capitalone.com"
-				},
-				
-				new Credential()
-				{
-					Name = "Chase",
-					Url = "http://www.chase.com"
-				}
-			};
+			return _database.GetCredentials();
 		}		
+		
+		public static bool SaveCredential(Credential credential)
+		{
+			return _database.SaveCredential(credential);
+		}
 		
 		#endregion
 	}

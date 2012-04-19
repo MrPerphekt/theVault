@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Linq;
+using MonoTouch.ObjCRuntime;
 
 namespace theVault
 {
@@ -62,6 +63,26 @@ namespace theVault
 			
 			UpdateViews();
 		}
+		
+		private void Handle_ActionButtonTouchUpInside (object sender, EventArgs e)
+		{
+			var selectedView = _views.Where(v => v.IsSelected).FirstOrDefault();
+			
+			if (selectedView == null)
+				return;
+						
+			var selector = new Selector("CreateNew");
+			
+			UIViewController selectedController = selectedView.ViewController;
+			
+			if (selectedView.ViewController is UINavigationController )
+				selectedController = (selectedView.ViewController as UINavigationController).VisibleViewController;
+			
+			if (selectedController.CanPerform(selector, this))
+				selectedController.PerformSelector(selector, this, 0f);
+			else
+				System.Diagnostics.Debug.WriteLine("{0} does not support CreateNew selector", selectedController);
+		}		
 		
 		public override void LayoutSubviews ()
 		{		
@@ -257,11 +278,12 @@ namespace theVault
 				_actionButton = UIButton.FromType(UIButtonType.Custom);
 				_actionButton.BackgroundColor = UIColor.Green;
 				_actionButton.Frame = new System.Drawing.RectangleF(actionButtonOffset, this.Frame.Height - actionButtonHeight, actionButtonWidth, actionButtonHeight);
+				_actionButton.TouchUpInside += Handle_ActionButtonTouchUpInside;
 			}
 			
 			AddSubview(_actionButton);
 			
 			SetNeedsLayout();
-		}		
+		}
 	}
 }

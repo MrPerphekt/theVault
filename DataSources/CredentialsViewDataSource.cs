@@ -35,10 +35,27 @@ namespace theVault
  
 			cell.TextLabel.Text = credential.Name;
 			cell.DetailTextLabel.Text = credential.Url;
-			//cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
+			cell.Accessory = UITableViewCellAccessory.DetailDisclosureButton;
 			
 			return cell;
 	    }
+		
+		public Credential GetCredentialAtIndex(NSIndexPath indexPath)
+		{
+			Credential credential = null;
+			
+			var groups = _filteredCredentials.GroupBy(c => c.Name[0]);
+			
+			if ( groups.Count() > indexPath.Section )
+			{
+				var groupData = groups.ElementAt(indexPath.Section);
+				
+				if (groupData.Count() > indexPath.Row)
+					credential = groupData.ElementAt(indexPath.Row);	
+			}
+			
+			return credential;
+		}
 		
 	    public override int NumberOfSections(UITableView tableView)
 	    {

@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="Mono.Data.Sqlite" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -91,6 +93,11 @@
     <Compile Include="Interfaces\ISearchableDataSource.cs" />
     <Compile Include="Delegates\SearchBarDelegate.cs" />
     <Compile Include="Data\VaultDatabase.cs" />
+    <Compile Include="Data\CredentialFields.cs" />
+    <Compile Include="Controllers\CredentialDetailViewController.cs" />
+    <Compile Include="Controllers\CredentialDetailViewController.designer.cs">
+      <DependentUpon>CredentialDetailViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
@@ -98,6 +105,7 @@
     <InterfaceDefinition Include="Resources\TableViewSearchBar.xib" />
     <InterfaceDefinition Include="Controllers\CredentialsViewController.xib" />
     <InterfaceDefinition Include="Controllers\NotesViewController.xib" />
+    <InterfaceDefinition Include="Controllers\CredentialDetailViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\first.png" />

@@ -9,6 +9,7 @@ namespace theVault
 {
 	public partial class MainViewController : UIViewController
 	{
+		private UINavigationController _credentialNavController;
 		private CredentialsViewController _credentialsView;
 		private NotesViewController _notesView;
 		
@@ -24,14 +25,15 @@ namespace theVault
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
+			
 			_credentialsView = new CredentialsViewController();
+			_credentialNavController = new UINavigationController(_credentialsView);
 			_notesView = new NotesViewController();
 						
-			_tabBar.AddViewController(_credentialsView);
+			_tabBar.AddViewController(_credentialNavController);
 			_tabBar.AddViewController(_notesView);
 			_tabBar.SetParentViewController(this);
-			_tabBar.SelectView(_credentialsView);
+			_tabBar.SelectView(_credentialNavController);
 		}
 	}
 }
