@@ -51,7 +51,7 @@ namespace theVault
 			else
 			{
 				this.Title = ActiveCredential.Name;
-			}
+			}			
 		}
 		
 		public override void ViewDidUnload ()
