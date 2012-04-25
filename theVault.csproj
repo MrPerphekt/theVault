@@ -62,6 +62,7 @@
     <Reference Include="monotouch" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="System.Data" />
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -98,6 +99,7 @@
     <Compile Include="Controllers\CredentialDetailViewController.designer.cs">
       <DependentUpon>CredentialDetailViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\CredentialHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
@@ -123,5 +125,6 @@
     <Folder Include="Resources\" />
     <Folder Include="Views\" />
     <Folder Include="Interfaces\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
 </Project>

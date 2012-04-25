@@ -24,17 +24,12 @@ namespace theVault
 		{
 			System.Diagnostics.Debug.WriteLine("Executed Create New on CredentialsViewController");
 			
-			CredentialDetailViewController controller = new CredentialDetailViewController();
-			
-			if ( NavigationController != null )
-				NavigationController.PushViewController(controller, true);
-			else
-				this.PresentModalViewController(controller, true);
+			CredentialHelper.ShowCredentialDetails(new Credential(), NavigationController == null ? (UIViewController)this : (UIViewController)NavigationController, TableView);
 		}
 		
 		private void Initialize()
 		{
-			this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");			
+			this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");		
 		}
 				
 		#region View lifecycle
@@ -42,7 +37,9 @@ namespace theVault
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-										
+								
+			this.Title = NSBundle.MainBundle.LocalizedString ("Credentials", "Credentials");		
+
 			this.TableView.Delegate = new CredentialsViewDelegate(this.NavigationController == null ? this : (UIViewController)NavigationController);
 			this.TableView.DataSource = new CredentialsViewDataSource();
 			
@@ -65,7 +62,9 @@ namespace theVault
 		public override void ViewWillAppear (bool animated)
 		{
 			if ( NavigationController != null )
+			{
 				NavigationController.NavigationBarHidden = true;
+			}
 			
 			base.ViewWillAppear (animated);
 		}

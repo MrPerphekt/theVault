@@ -1,5 +1,6 @@
 using System;
 using MonoTouch.UIKit;
+using MonoTouch.Dialog;
 
 namespace theVault
 {
@@ -25,12 +26,7 @@ namespace theVault
 				
 				if ( credential != null )
 				{
-					CredentialDetailViewController controller = new CredentialDetailViewController(credential);
-					
-					if ( _controller is UINavigationController )
-						(_controller as UINavigationController).PushViewController(controller, true);
-					else
-						_controller.PresentModalViewController(controller, true);					
+					CredentialHelper.ShowCredentialDetails(credential, _controller, tableView);
 				}
 			}
 		}

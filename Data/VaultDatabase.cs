@@ -77,11 +77,21 @@ namespace theVault
 				using (var command = _connection.CreateCommand())
 				{
 					command.CommandType = CommandType.Text;
-					command.CommandText = string.Format("INSERT INTO Credentials (Name, Notes, Password, Username, Url) VALUES ('{0}','{1}','{2}','{3}','{4}')", 
-				                                    	credential.Name, credential.Notes, credential.Password, credential.Username, credential.Url);
-					var id = command.ExecuteScalar();
 					
-					credential.Id = (int)id;
+					if (credential.Id == 0 )
+					{
+						command.CommandText = string.Format("INSERT INTO Credentials (Name, Notes, Password, Username, Url) VALUES ('{0}','{1}','{2}','{3}','{4}'); select last_insert_rowid()", 
+					                                    	credential.Name, credential.Notes, credential.Password, credential.Username, credential.Url);
+						var id = command.ExecuteScalar();					
+						credential.Id = int.Parse(id.ToString());
+					}
+					else
+					{
+						command.CommandText = string.Format("UPDATE Credentials SET Name = '{0}', Notes ='{1}', Password = '{2}', Username = '{3}', Url = '{4}' WHERE Id = {5}", 
+					                                    	credential.Name, credential.Notes, credential.Password, credential.Username, credential.Url, credential.Id);						
+						
+						command.ExecuteNonQuery();
+					}
 				}
 			}
 			catch (Exception e)

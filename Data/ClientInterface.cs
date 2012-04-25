@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace theVault
 {
 	public static class ClientInterface
 	{
 		private static VaultDatabase _database;
+		private static ObservableCollection<Credential> _credentials;
 		
 		static ClientInterface ()
 		{
@@ -24,14 +26,24 @@ namespace theVault
 		{
 		}
 		
-		public static List<Credential> GetCredentials()
+		public static ObservableCollection<Credential> GetCredentials()
 		{
-			return _database.GetCredentials();
+			if (_credentials == null)
+			{
+				_credentials = new ObservableCollection<Credential>(_database.GetCredentials());
+			}
+			
+			return _credentials;
 		}		
 		
 		public static bool SaveCredential(Credential credential)
 		{
-			return _database.SaveCredential(credential);
+			bool result = _database.SaveCredential(credential);
+			
+			if (result && _credentials.Contains(credential) == false)
+				_credentials.Add(credential);
+			
+			return result;
 		}
 		
 		#endregion
